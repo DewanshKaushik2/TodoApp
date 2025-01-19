@@ -155,25 +155,33 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun List(mainViewModel: MainViewModel) {
         //search
-        var text by rememberSaveable { mutableStateOf("") }
+        //list
+        val posts by rememberSaveable {
+            mainViewModel.todolist
+        }
+// State to hold the search query
+        var searchQuery by rememberSaveable { mutableStateOf("") }
+
+        // Filter items based on the search query
+        val filteredItems = posts.filter { it.itemName.startsWith(searchQuery, ignoreCase = true) }
+
         Column {
             TextField(
-                value = text,
-                onValueChange = { newText -> text = newText },
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
                 label = { Text("Enter text") },
                 placeholder = { Text("Type here...") },
                 shape = MaterialTheme.shapes.medium, // Rounded corners
                 modifier = Modifier.fillMaxWidth(),
             )
-            //list
-            val posts by rememberSaveable {
-                mainViewModel.todolist
-            }
-            if (posts.isEmpty()) {
+
+
+
+            if (filteredItems.isEmpty()) {
                 ShowDefaultText()
 
             } else {
-                Log.e("MainActivity", posts.toString())
+                Log.e("MainActivity", filteredItems.toString())
 
                 //new column
                 val context = LocalContext.current
@@ -186,7 +194,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     //this is list
                     LazyColumn {
-                        itemsIndexed(posts) { index, item ->
+                        itemsIndexed(filteredItems) { index, item ->
 
                             Column {
                                 if (item == null) return@Column

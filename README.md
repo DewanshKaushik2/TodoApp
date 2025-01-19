@@ -8,7 +8,7 @@ Retrofit, Coroutines, Flow, StateFlow, and etc.
 
 - MVVM Architecture
 - Kotlin
-- Dagger
+- Dagger Hilt
 - Retrofit
 - Coroutines
 - Flow
@@ -40,7 +40,10 @@ Retrofit, Coroutines, Flow, StateFlow, and etc.
 - Learn Kotlin Topics: [Kotlin Blog]
 
 You can connect with me on 
-https://www.linkedin.com/in/dewansh-kaushik-a22b92123/
+
+- [Instagram](https://www.instagram.com/kaushikdewansh/)
+- [LinkedIn](https://www.linkedin.com/in/dewansh-kaushik-a22b92123/)
+- [GitHub](https://github.com/DewanshKaushik2)
 
 ### License
 
