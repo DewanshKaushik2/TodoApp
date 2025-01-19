@@ -24,6 +24,7 @@ class Repository@Inject constructor(
             if (data != null) {
                 emit(data)
             };
+
         }
     }
 }
