@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 public class MainViewModel @Inject constructor(var repository: Repository) : ViewModel() {
-    val todolist: MutableState<List<TodoItem>> = mutableStateOf(emptyList())
+    var todolist: MutableState<List<TodoItem>> = mutableStateOf(emptyList())
 
     init {
         //d prepareList()

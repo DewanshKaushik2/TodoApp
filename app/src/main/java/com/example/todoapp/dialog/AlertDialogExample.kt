@@ -2,6 +2,8 @@ package com.example.todoapp.dialog
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -23,15 +25,11 @@ fun AlertDialogExample(
     }, title = {
         Text(text = dialogTitle)
     }, text = {
-        Text(text = dialogText+dialogText, modifier = Modifier.fillMaxWidth().fillMaxSize())
+        Text(text = dialogText, modifier = Modifier.wrapContentSize().wrapContentHeight())
     }, onDismissRequest = {
         onDismissRequest()
     }, confirmButton = {
-        TextButton(onClick = {
-            onConfirmation()
-        }) {
-            Text("Confirm")
-        }
+
     }, dismissButton = {
         TextButton(onClick = {
             onDismissRequest()

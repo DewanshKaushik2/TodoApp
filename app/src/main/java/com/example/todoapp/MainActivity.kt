@@ -53,7 +53,6 @@ import com.example.todoapp.view.EnterNewItemActivity
 import com.example.todoapp.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-//@HiltViewModel
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
@@ -126,8 +125,6 @@ class MainActivity : ComponentActivity() {
     }
 
     fun gotoNextActivity() {
-        /* val intent = Intent(this, EnterNewItemActivity::class.java)
-         startActivity(intent)*/
         val intent = Intent(this, EnterNewItemActivity::class.java)
         startActivityForResult(intent, START_ACTIVITY_3_REQUEST_CODE)
     }
@@ -140,8 +137,8 @@ class MainActivity : ComponentActivity() {
                     if (message.trim().equals("error")) {
                         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                         setContent {
-                            val openAlertDialog = rememberSaveable { mutableStateOf(false) }
-                            showDialog("hi", openAlertDialog)
+                            val openAlertDialog = rememberSaveable { mutableStateOf(true) }
+                            showDialog("Failed to add TODO", openAlertDialog)
                             FloatingBar()
                         }
                     }
@@ -179,7 +176,6 @@ class MainActivity : ComponentActivity() {
 
             if (filteredItems.isEmpty()) {
                 ShowDefaultText()
-
             } else {
                 Log.e("MainActivity", filteredItems.toString())
 
@@ -204,7 +200,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxWidth()
                                         .padding(16.dp)
                                         .clickable(onClick = {
-                                            gotoNextActivity()
+                                            //d gotoNextActivity()
                                         }),
                                     colors = CardDefaults.cardColors(
                                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -244,32 +240,11 @@ class MainActivity : ComponentActivity() {
                 onConfirmation = {
 
                 },
-                dialogTitle = "Alert dialog example",
+                dialogTitle = "Error",
 //            dialogText = "This is an example of an alert dialog with buttons.",
                 dialogText = data,
                 icon = Icons.Default.Info,
             )
         }
     }
-
-    /*
-        @Composable
-        fun rememberSearchState(
-            query: TextFieldValue = TextFieldValue(""),
-            focused: Boolean = false,
-            searching: Boolean = false,
-            suggestions: List<TodoItem> = emptyList(),
-            searchResults: List<TodoItem> = emptyList()
-        ): SearchState {
-            return remember {
-                SearchState(
-                    query = query,
-                    focused = focused,
-                    searching = searching,
-                    suggestions = suggestions,
-                    searchResults = searchResults
-                )
-            }
-        }
-    */
 }
