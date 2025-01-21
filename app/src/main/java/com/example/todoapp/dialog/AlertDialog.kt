@@ -1,6 +1,5 @@
 package com.example.todoapp.dialog
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -13,9 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun AlertDialogExample(
+fun AlertDialog(
     onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
     dialogTitle: String,
     dialogText: String,
     icon: ImageVector,
@@ -25,7 +23,9 @@ fun AlertDialogExample(
     }, title = {
         Text(text = dialogTitle)
     }, text = {
-        Text(text = dialogText, modifier = Modifier.wrapContentSize().wrapContentHeight())
+        Text(text = dialogText, modifier = Modifier
+            .wrapContentSize()
+            .wrapContentHeight())
     }, onDismissRequest = {
         onDismissRequest()
     }, confirmButton = {
@@ -37,6 +37,6 @@ fun AlertDialogExample(
             Text("Dismiss")
         }
     },
-        modifier= Modifier.fillMaxWidth()
-        )
+        modifier = Modifier.fillMaxWidth()
+    )
 }

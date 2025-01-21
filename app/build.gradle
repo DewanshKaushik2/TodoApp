@@ -115,8 +115,5 @@ dependencies {
     // Jetpack Compose UI
     implementation "androidx.compose.ui:ui:1.4.0"
 
-    // Jetpack Compose Test
-
-    // For testing Compose with JUnit
 
 }

@@ -43,15 +43,11 @@ class MainViewModelTest {
             TodoItem(id = 1, itemName = "Test Todo 1"),
             TodoItem(id = 2, itemName = "Test Todo 2")
         )
-        // Simulate your ViewModel's getData method fetching data (use mocking or dummy data)
-      //d  mockData.also { mainViewModel.todolist = it } // or mock this behavior if using a repository
 
         // Act
         mainViewModel.getData()
         assertNotNull(mainViewModel.todolist)
         // Assert
-     //d   mainViewModel.todolist.observeForever(mockObserver)
-     //d   Mockito.verify(mockObserver).onChanged(mockData)
 
     }
 }

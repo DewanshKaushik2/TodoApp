@@ -1,6 +1,5 @@
 package com.example.todoapp
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,9 +23,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -44,10 +42,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.todoapp.dialog.AlertDialogExample
+import com.example.todoapp.dialog.AlertDialog
 import com.example.todoapp.ui.theme.TodoAppTheme
 import com.example.todoapp.view.EnterNewItemActivity
 import com.example.todoapp.viewmodel.MainViewModel
@@ -59,7 +56,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             TodoAppTheme {
                 FloatingBar()
@@ -124,21 +120,22 @@ class MainActivity : ComponentActivity() {
         const val START_ACTIVITY_3_REQUEST_CODE = 0
     }
 
-    fun gotoNextActivity() {
+    private fun gotoNextActivity() {
         val intent = Intent(this, EnterNewItemActivity::class.java)
         startActivityForResult(intent, START_ACTIVITY_3_REQUEST_CODE)
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == START_ACTIVITY_3_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 val message = data!!.getStringExtra("message")
                 if (message != null) {
-                    if (message.trim().equals("error")) {
+                    if (message.trim() == "error") {
                         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                         setContent {
                             val openAlertDialog = rememberSaveable { mutableStateOf(true) }
-                            showDialog("Failed to add TODO", openAlertDialog)
+                            ShowDialog("Failed to add TODO", openAlertDialog)
                             FloatingBar()
                         }
                     }
@@ -180,7 +177,6 @@ class MainActivity : ComponentActivity() {
                 Log.e("MainActivity", filteredItems.toString())
 
                 //new column
-                val context = LocalContext.current
                 val openAlertDialog = rememberSaveable { mutableStateOf(false) }
 
                 Column(
@@ -193,7 +189,6 @@ class MainActivity : ComponentActivity() {
                         itemsIndexed(filteredItems) { index, item ->
 
                             Column {
-                                if (item == null) return@Column
                                 Card(
                                     shape = RoundedCornerShape(4.dp),
                                     modifier = Modifier
@@ -212,12 +207,12 @@ class MainActivity : ComponentActivity() {
                                     text = item.itemName,
                                     modifier = Modifier.padding(2.dp)
                                 )
-                                Divider(
+                                HorizontalDivider(
                                     modifier = Modifier.fillMaxWidth(),
                                     color = Color.Black,
                                     thickness = 1.dp
                                 )
-                                showDialog("hi", openAlertDialog)
+                                ShowDialog("hi", openAlertDialog)
                             }
                         }
                     }
@@ -230,18 +225,14 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun showDialog(data: String, openAlertDialog: MutableState<Boolean>) {
+    fun ShowDialog(data: String, openAlertDialog: MutableState<Boolean>) {
 
         if (openAlertDialog.value) {
-            AlertDialogExample(
+            AlertDialog(
                 onDismissRequest = {
                     openAlertDialog.value = false
                 },
-                onConfirmation = {
-
-                },
                 dialogTitle = "Error",
-//            dialogText = "This is an example of an alert dialog with buttons.",
                 dialogText = data,
                 icon = Icons.Default.Info,
             )

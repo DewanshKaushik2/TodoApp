@@ -41,11 +41,8 @@ fun IndeterminateCircularIndicator() {
                         .height(64.dp),
                     color = MaterialTheme.colorScheme.secondary,
                     trackColor = MaterialTheme.colorScheme.surfaceVariant,
-
                     )
             }
         }
-    } else {
-        //   Text("Data Loaded")
     }
 }

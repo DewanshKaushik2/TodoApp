@@ -1,13 +1,11 @@
-package com.example.todoapp.Database
-
+package com.example.todoapp.database
 
 import android.content.Context
 import androidx.room.Room.databaseBuilder
 import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
 @Singleton
-class DatabaseClient private constructor(private val mCtx: Context) {
+class DatabaseClient private constructor(mCtx: Context) {
     //our app database object
     private val appDatabase: ToDoAppDatabase
 
